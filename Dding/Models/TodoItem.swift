@@ -8,9 +8,11 @@
 import Foundation
 
 struct TodoItem {
+    let id: UUID
     var title: String
+    var repeatDays: [Int]
+    var todoTime: DateComponents
     var isCompleted: Bool
-    var dueDate: Date
     var reminderTime: Int
     var completionCheckTime: Int
     var tag: String

@@ -11,37 +11,64 @@ class NewTodoView: UIView {
     
     var confirmButtonTapped: (() -> Void)?
     var closeButtonTapped: (() -> Void)?
+    private var dayButtons: [UIButton] = []
+    private let weekdayButton = UIButton(type: .system)
+    private let weekendButton = UIButton(type: .system)
+    private let everydayButton = UIButton(type: .system)
+    private var days: [Int: String] = [1: "일", 2: "월", 3: "화", 4: "수", 5: "목", 6: "금", 7: "토"]
+    var selectedDays: [Int] {
+        return dayButtons.enumerated().compactMap { index, button in
+            guard button.isSelected else { return nil }
+            let dayValue = (index + 2) % 7
+            return dayValue == 0 ? 7 : dayValue
+        }
+    }
     
-    // MARK: - UI Components
     let titleTextField: UITextField = {
         let textField = UITextField()
         textField.placeholder = "할 일을 입력해주세요."
         textField.borderStyle = .roundedRect
-        
         return textField
     }()
     
-    let timeStackView: UIStackView = {
+    let todoTimePicker: UIDatePicker = {
+        let datePicker = UIDatePicker()
+        datePicker.datePickerMode = .time
+        datePicker.preferredDatePickerStyle = .wheels
+        return datePicker
+    }()
+    
+    private let weekdayStackView: UIStackView = {
         let stackView = UIStackView()
-        stackView.axis = .vertical
-        
+        stackView.axis = .horizontal
+        stackView.spacing = 8
+        stackView.alignment = .fill
+        stackView.distribution = .fillEqually
         return stackView
     }()
     
-    let dueDatePicker: UIDatePicker = {
-        let datePicker = UIDatePicker()
-        datePicker.datePickerMode = .dateAndTime
-        datePicker.preferredDatePickerStyle = .compact
-        datePicker.locale = Locale(identifier: "ko-KR")
-        
-        return datePicker
+    private let specialButtonsStackView: UIStackView = {
+        let stackView = UIStackView()
+        stackView.axis = .horizontal
+        stackView.spacing = 8
+        stackView.alignment = .fill
+        stackView.distribution = .fillEqually
+        return stackView
+    }()
+    
+    private let timeStackView: UIStackView = {
+        let stackView = UIStackView()
+        stackView.axis = .horizontal
+        stackView.alignment = .fill
+        stackView.distribution = .fillEqually
+        stackView.spacing = 10
+        return stackView
     }()
     
     let reminderTimePicker: UIDatePicker = {
         let datePicker = UIDatePicker()
         datePicker.datePickerMode = .countDownTimer
         datePicker.preferredDatePickerStyle = .wheels
-        
         return datePicker
     }()
     
@@ -49,19 +76,17 @@ class NewTodoView: UIView {
         let datePicker = UIDatePicker()
         datePicker.datePickerMode = .countDownTimer
         datePicker.preferredDatePickerStyle = .wheels
-        
         return datePicker
     }()
     
-    let memo: UILabel = {
-        let memo = UILabel()
-        memo.text = String("testmemo")
-        memo.textColor = .black
-        
-        return memo
+    let memoTextField: UITextField = {
+        let textView = UITextField()
+        textView.text = "testmemo"
+        textView.textColor = .black
+        return textView
     }()
     
-    let buttonStackView: UIStackView = {
+    private let buttonStackView: UIStackView = {
         let stackView = UIStackView()
         stackView.axis = .horizontal
         stackView.alignment = .fill
@@ -71,33 +96,29 @@ class NewTodoView: UIView {
         return stackView
     }()
     
-    let confirmButton: UIButton = {
+    private let confirmButton: UIButton = {
         let button = UIButton(type: .system)
         button.setTitle("확인", for: .normal)
         button.addTarget(self, action: #selector(touchUpConfirmButton), for: .touchUpInside)
         button.backgroundColor = .clear
-        
         return button
     }()
     
-    let closeButton: UIButton = {
+    private let closeButton: UIButton = {
         let button = UIButton(type: .system)
         button.setTitle("닫기", for: .normal)
         button.addTarget(self, action: #selector(touchUpCloseButton), for: .touchUpInside)
         button.backgroundColor = .clear
-        
         return button
     }()
- 
-    let totalStackView: UIStackView = {
+    
+    private let totalStackView: UIStackView = {
         let stackView = UIStackView()
         stackView.axis = .vertical
         stackView.distribution = .equalSpacing
-        
         return stackView
     }()
     
-    // MARK: - Initialization
     override init(frame: CGRect) {
         super.init(frame: frame)
         setupView()
@@ -111,102 +132,162 @@ class NewTodoView: UIView {
     }
     
     private func setupView() {
+        setupDayButtons()
+        setupSpecialButtons()
+        
         self.backgroundColor = .white
         self.layer.cornerRadius = 10
         self.addSubview(totalStackView)
-        totalStackView.addSubview(titleTextField)
-        totalStackView.addSubview(dueDatePicker)
-        totalStackView.addSubview(timeStackView)
-        timeStackView.addSubview(reminderTimePicker)
-        timeStackView.addSubview(completionTimePicker)
-        totalStackView.addSubview(memo)
-        totalStackView.addSubview(buttonStackView)
+        
+        totalStackView.addArrangedSubview(titleTextField)
+        totalStackView.addArrangedSubview(todoTimePicker)
+        totalStackView.addArrangedSubview(weekdayStackView)
+        totalStackView.addArrangedSubview(specialButtonsStackView)
+        totalStackView.addArrangedSubview(timeStackView)
+        totalStackView.addArrangedSubview(memoTextField)
+        totalStackView.addArrangedSubview(buttonStackView)
+        
+        timeStackView.addArrangedSubview(reminderTimePicker)
+        timeStackView.addArrangedSubview(completionTimePicker)
+        
         buttonStackView.addArrangedSubview(confirmButton)
         buttonStackView.addArrangedSubview(closeButton)
+    }
+    
+    private func setupDayButtons() {
+        for i in 2...8 {
+            let button = UIButton(type: .system)
+            button.setTitle(days[i] ?? "일", for: .normal)
+            button.backgroundColor = .systemGray5
+            button.layer.cornerRadius = 10
+            button.addTarget(self, action: #selector(dayButtonTapped(_:)), for: .touchUpInside)
+            dayButtons.append(button)
+            weekdayStackView.addArrangedSubview(button)
+        }
+    }
+    
+    private func setupSpecialButtons() {
+        weekdayButton.setTitle("평일", for: .normal)
+        weekendButton.setTitle("주말", for: .normal)
+        everydayButton.setTitle("매일", for: .normal)
+        
+        [weekdayButton, weekendButton, everydayButton].forEach { button in
+            button.backgroundColor = .systemGray5
+            button.layer.cornerRadius = 10
+            button.addTarget(self, action: #selector(specialButtonTapped(_:)), for: .touchUpInside)
+            specialButtonsStackView.addArrangedSubview(button)
+        }
     }
     
     private func setupLayout() {
         totalStackView.translatesAutoresizingMaskIntoConstraints = false
         titleTextField.translatesAutoresizingMaskIntoConstraints = false
-        dueDatePicker.translatesAutoresizingMaskIntoConstraints = false
+        todoTimePicker.translatesAutoresizingMaskIntoConstraints = false
         timeStackView.translatesAutoresizingMaskIntoConstraints = false
-        reminderTimePicker.translatesAutoresizingMaskIntoConstraints = false
-        completionTimePicker.translatesAutoresizingMaskIntoConstraints = false
-        memo.translatesAutoresizingMaskIntoConstraints = false
+        memoTextField.translatesAutoresizingMaskIntoConstraints = false
         buttonStackView.translatesAutoresizingMaskIntoConstraints = false
+        weekdayStackView.translatesAutoresizingMaskIntoConstraints = false
+        specialButtonsStackView.translatesAutoresizingMaskIntoConstraints = false
         
         NSLayoutConstraint.activate([
-            
-            totalStackView.topAnchor.constraint(equalTo: self.topAnchor, constant: 10),
-            totalStackView.leadingAnchor.constraint(equalTo: self.leadingAnchor, constant: 10),
-            totalStackView.trailingAnchor.constraint(equalTo: self.trailingAnchor, constant: 10),
-            totalStackView.bottomAnchor.constraint(equalTo: self.bottomAnchor, constant: 10),
-            
-            titleTextField.topAnchor.constraint(equalTo: totalStackView.topAnchor, constant: 20),
+            titleTextField.topAnchor.constraint(equalTo: self.topAnchor, constant: 20),
             titleTextField.centerXAnchor.constraint(equalTo: totalStackView.centerXAnchor),
             titleTextField.widthAnchor.constraint(equalToConstant: 200),
             titleTextField.heightAnchor.constraint(equalToConstant: 50),
             
-            dueDatePicker.topAnchor.constraint(equalTo: titleTextField.bottomAnchor, constant: 20),
-            dueDatePicker.centerXAnchor.constraint(equalTo: totalStackView.centerXAnchor),
-            dueDatePicker.heightAnchor.constraint(equalToConstant: 50),
+            todoTimePicker.topAnchor.constraint(equalTo: titleTextField.bottomAnchor, constant: 10),
+            todoTimePicker.leadingAnchor.constraint(equalTo: self.leadingAnchor, constant: 16),
+            todoTimePicker.trailingAnchor.constraint(equalTo: self.trailingAnchor, constant: -16),
+            todoTimePicker.heightAnchor.constraint(equalToConstant: 50),
             
-            timeStackView.topAnchor.constraint(equalTo: dueDatePicker.bottomAnchor, constant: 10),
+            weekdayStackView.topAnchor.constraint(equalTo: todoTimePicker.bottomAnchor, constant: 10),
+            weekdayStackView.leadingAnchor.constraint(equalTo: self.leadingAnchor, constant: 16),
+            weekdayStackView.trailingAnchor.constraint(equalTo: self.trailingAnchor, constant: -16),
+            weekdayStackView.heightAnchor.constraint(equalToConstant: 30),
+            
+            specialButtonsStackView.topAnchor.constraint(equalTo: weekdayStackView.bottomAnchor, constant: 20),
+            specialButtonsStackView.leadingAnchor.constraint(equalTo: self.leadingAnchor, constant: 16),
+            specialButtonsStackView.trailingAnchor.constraint(equalTo: self.trailingAnchor, constant: -16),
+            specialButtonsStackView.heightAnchor.constraint(equalToConstant: 30),
+            
+            totalStackView.topAnchor.constraint(equalTo: self.topAnchor, constant: 10),
+            totalStackView.leadingAnchor.constraint(equalTo: self.leadingAnchor, constant: 10),
+            totalStackView.trailingAnchor.constraint(equalTo: self.trailingAnchor, constant: -10),
+            totalStackView.bottomAnchor.constraint(equalTo: self.bottomAnchor, constant: -10),
+            
+            timeStackView.topAnchor.constraint(equalTo: weekendButton.bottomAnchor, constant: 10),
             timeStackView.leadingAnchor.constraint(equalTo: totalStackView.leadingAnchor, constant: 10),
-            timeStackView.trailingAnchor.constraint(equalTo: totalStackView.trailingAnchor, constant: 10),
+            timeStackView.trailingAnchor.constraint(equalTo: totalStackView.trailingAnchor, constant: -10),
             timeStackView.heightAnchor.constraint(equalToConstant: 80),
             
-            reminderTimePicker.topAnchor.constraint(equalTo: timeStackView.topAnchor),
-            reminderTimePicker.leadingAnchor.constraint(equalTo: timeStackView.leadingAnchor, constant: 10),
-            reminderTimePicker.trailingAnchor.constraint(equalTo: timeStackView.trailingAnchor, constant: 10),
-            reminderTimePicker.heightAnchor.constraint(equalToConstant: 40),
-            
-            completionTimePicker.bottomAnchor.constraint(equalTo: timeStackView.bottomAnchor),
-            completionTimePicker.leadingAnchor.constraint(equalTo: timeStackView.leadingAnchor, constant: 10),
-            completionTimePicker.trailingAnchor.constraint(equalTo: timeStackView.trailingAnchor, constant: 10),
-            completionTimePicker.heightAnchor.constraint(equalToConstant: 40),
-            
-            memo.topAnchor.constraint(equalTo: timeStackView.bottomAnchor, constant: 10),
-            memo.leadingAnchor.constraint(equalTo: timeStackView.leadingAnchor, constant: 10),
-            memo.trailingAnchor.constraint(equalTo: timeStackView.trailingAnchor, constant: 10),
-            memo.heightAnchor.constraint(equalToConstant: 50),
+            memoTextField.topAnchor.constraint(equalTo: timeStackView.bottomAnchor, constant: 10),
+            memoTextField.leadingAnchor.constraint(equalTo: timeStackView.leadingAnchor, constant: 10),
+            memoTextField.trailingAnchor.constraint(equalTo: timeStackView.trailingAnchor, constant: -10),
+            memoTextField.heightAnchor.constraint(equalToConstant: 50),
             
             buttonStackView.bottomAnchor.constraint(equalTo: self.bottomAnchor, constant: -10),
-            buttonStackView.leadingAnchor.constraint(equalTo: self.leadingAnchor),
-            buttonStackView.trailingAnchor.constraint(equalTo: self.trailingAnchor),
-            buttonStackView.heightAnchor.constraint(equalToConstant: 50),
-            
+            buttonStackView.leadingAnchor.constraint(equalTo: self.leadingAnchor, constant: 10),
+            buttonStackView.trailingAnchor.constraint(equalTo: self.trailingAnchor, constant: -10),
+            buttonStackView.heightAnchor.constraint(equalToConstant: 50)
         ])
     }
     
-    // MARK: - Dismiss
-    @objc private func touchUpCloseButton() {
-        closeButtonTapped?()
-    }
-    
-    @objc private func touchUpConfirmButton() {
-        confirmButtonTapped?()
-    }
-    
-    func showViewWithAnimation() {
+    private func showViewWithAnimation() {
         self.alpha = 0
         UIView.animate(withDuration: 0.3) {
             self.alpha = 1
         }
     }
     
-    func hideKeyboard() {
+    private func hideKeyboard() {
         let tapGesture = UITapGestureRecognizer(target: self, action: #selector(dismissKeyboard))
-        self.addGestureRecognizer(tapGesture)
-
-//        if let windowScene = UIApplication.shared.connectedScenes.first as? UIWindowScene,
-//           let window = windowScene.windows.first {
-//            let tapGesture = UITapGestureRecognizer(target: self, action: #selector(dismissKeyboard))
-//            window.addGestureRecognizer(tapGesture)
-//        }
+        addGestureRecognizer(tapGesture)
     }
     
-    @objc func dismissKeyboard() {
-        self.endEditing(true)
+    @objc private func dismissKeyboard() {
+        endEditing(true)
     }
+    
+    @objc private func dayButtonTapped(_ sender: UIButton) {
+        sender.isSelected.toggle()
+//        sender.backgroundColor = sender.isSelected ? UIColor(red: 255, green: 250, blue: 205, alpha: 0) : .systemGray5
+    }
+    
+    @objc private func specialButtonTapped(_ sender: UIButton) {
+        dayButtons.enumerated().forEach { index, button in
+            if sender == weekdayButton {
+                button.isSelected = (index < 5)
+            } else if sender == weekendButton {
+                button.isSelected = (index >= 5)
+            } else {
+                button.isSelected = true
+            }
+        }
+    }
+    
+    @objc private func touchUpConfirmButton() {
+        confirmButtonTapped?()
+        resetNewTodoView()
+    }
+    
+    @objc private func touchUpCloseButton() {
+        closeButtonTapped?()
+        resetNewTodoView()
+    }
+    
+    private func resetNewTodoView() {
+        titleTextField.text = ""
+        titleTextField.placeholder = "할 일을 입력해주세요."
+        memoTextField.text = "testmemo"
+
+        dayButtons.forEach { button in
+            button.isSelected = false
+            button.backgroundColor = .systemGray5
+        }
+        
+        todoTimePicker.setDate(Date(), animated: false)
+        reminderTimePicker.countDownDuration = 0
+        completionTimePicker.countDownDuration = 0
+    }
+
 }

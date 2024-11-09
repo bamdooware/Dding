@@ -5,13 +5,17 @@
 //  Created by 이지은 on 10/11/24.
 //
 
+protocol AddButtonViewDelegate: AnyObject {
+    func didTapAddButton()
+}
+
 import UIKit
 
 class AddButtonView: UIView {
+    weak var delegate: AddButtonViewDelegate?
     
     let addButton = UIButton()
     let newTodoView = NewTodoView()
-    var buttonTapped: (() -> Void)?
     
     override init(frame: CGRect) {
         super.init(frame: frame)
@@ -26,9 +30,9 @@ class AddButtonView: UIView {
         addButton.translatesAutoresizingMaskIntoConstraints = false
         addButton.setTitle("+", for: .normal)
         addButton.titleLabel?.font = UIFont.boldSystemFont(ofSize: 24)
-        addButton.backgroundColor = .brown
+        addButton.backgroundColor = UIColor(red: 255, green: 250, blue: 205, alpha: 1.0)
         addButton.layer.cornerRadius = 25
-        addButton.addTarget(self, action: #selector(buttonPressed), for: .touchUpInside)
+        addButton.addTarget(self, action: #selector(addButtonPressed), for: .touchUpInside)
         self.addSubview(addButton)
         
         NSLayoutConstraint.activate([
@@ -37,8 +41,8 @@ class AddButtonView: UIView {
         ])
     }
     
-    @objc private func buttonPressed() {
-        buttonTapped?()
+    @objc private func addButtonPressed() {
+        delegate?.didTapAddButton()
     }
 }
 

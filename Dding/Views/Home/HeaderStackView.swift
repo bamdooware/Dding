@@ -9,7 +9,8 @@ import UIKit
 
 class HeaderStackView: UIStackView {
     
-    let headerImageView = UIImageView(image: UIImage(named: "HomeLogo")) // 타이틀 포함된 이미지
+    let headerImageView = UIImageView(image: UIImage(named: "HomeLogo"))
+    let headerTitle = UILabel()
     let settingsButton = UIButton(type: .system)
     
     override init(frame: CGRect) {
@@ -22,18 +23,14 @@ class HeaderStackView: UIStackView {
     }
     
     private func setupView() {
-        headerImageView.contentMode = .scaleAspectFit
+        headerTitle.text = "DDING!"
         settingsButton.setImage(UIImage(systemName: "gearshape"), for: .normal)
         
         self.translatesAutoresizingMaskIntoConstraints = false
         self.axis = .horizontal
         self.distribution = .fill
         self.alignment = .center
-        
-        headerImageView.translatesAutoresizingMaskIntoConstraints = false
-        headerImageView.widthAnchor.constraint(equalToConstant: 250).isActive = true // 원하는 크기로 조정
-        
-        self.addArrangedSubview(headerImageView)
+        self.addArrangedSubview(headerTitle)
         self.addArrangedSubview(settingsButton)
         self.setCustomSpacing(20, after: headerImageView)
     }
