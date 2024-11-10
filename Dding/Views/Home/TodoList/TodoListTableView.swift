@@ -102,18 +102,17 @@ class TodoListTableView: UITableView, UITableViewDataSource, UITableViewDelegate
         
         let label = UILabel()
         label.text = "할 일 목록"
-        label.backgroundColor = UIColor(red: 255, green: 250, blue: 205.0, alpha: 1.0)
+        label.backgroundColor = .white
         label.textColor = .black
-        label.textAlignment = .center
+        label.textAlignment = .left
         label.translatesAutoresizingMaskIntoConstraints = false
         
         headerView.addSubview(label)
         
         NSLayoutConstraint.activate([
-            label.centerXAnchor.constraint(equalTo: headerView.centerXAnchor),
-            label.centerYAnchor.constraint(equalTo: headerView.centerYAnchor),
-            label.leadingAnchor.constraint(equalTo: headerView.leadingAnchor, constant: 16),
-            label.trailingAnchor.constraint(equalTo: headerView.trailingAnchor, constant: -16)
+            label.topAnchor.constraint(equalTo: headerView.topAnchor, constant: 30),
+            label.leadingAnchor.constraint(equalTo: headerView.leadingAnchor, constant: 20),
+            label.trailingAnchor.constraint(equalTo: headerView.trailingAnchor, constant: -20),
         ])
         return headerView
     }

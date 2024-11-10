@@ -30,7 +30,7 @@ class AddButtonView: UIView {
         addButton.translatesAutoresizingMaskIntoConstraints = false
         addButton.setTitle("+", for: .normal)
         addButton.titleLabel?.font = UIFont.boldSystemFont(ofSize: 24)
-        addButton.backgroundColor = UIColor(red: 255, green: 250, blue: 205, alpha: 1.0)
+        addButton.backgroundColor = .systemYellow
         addButton.layer.cornerRadius = 25
         addButton.addTarget(self, action: #selector(addButtonPressed), for: .touchUpInside)
         self.addSubview(addButton)

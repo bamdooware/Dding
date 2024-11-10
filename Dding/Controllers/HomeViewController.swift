@@ -14,6 +14,7 @@ class HomeViewController: UIViewController, TodoListInteractionDelegate, AddButt
     
     // MARK: - UI Components
     private let headerStackView = HeaderStackView()
+    private let progressStackContainerView = UIView()
     private let progressStackView = ProgressStackView()
     private let todoListContainerView = UIView() // 새 컨테이너 뷰
     private let todoListTableView = TodoListTableView()
@@ -25,7 +26,7 @@ class HomeViewController: UIViewController, TodoListInteractionDelegate, AddButt
     // MARK: - Lifecycle
     override func viewDidLoad() {
         super.viewDidLoad()
-        view.backgroundColor = .background
+        view.backgroundColor = .systemGray6
         
         configureViews()
         configureDelegates()
@@ -69,12 +70,16 @@ class HomeViewController: UIViewController, TodoListInteractionDelegate, AddButt
     
     // MARK: - View Configuration
     private func configureViews() {
-        [headerStackView, progressStackView, todoListContainerView, addButtonView].forEach { view.addSubview($0) }
+        [headerStackView, progressStackView, progressStackContainerView, todoListContainerView, addButtonView].forEach { view.addSubview($0) }
 
         todoListContainerView.layer.cornerRadius = 15
         todoListContainerView.clipsToBounds = true
-        
         todoListContainerView.addSubview(todoListTableView)
+        
+        progressStackContainerView.layer.cornerRadius = 15
+        progressStackView.clipsToBounds = true
+        progressStackContainerView.addSubview(progressStackView)
+        
         updateProgressView()
         setupNewTodoViewActions()
     }
@@ -202,7 +207,8 @@ class HomeViewController: UIViewController, TodoListInteractionDelegate, AddButt
     // MARK: - Constraints
     private func setupConstraints() {
         headerStackView.translatesAutoresizingMaskIntoConstraints = false
-        progressStackView.translatesAutoresizingMaskIntoConstraints = false
+//        progressStackView.translatesAutoresizingMaskIntoConstraints = false
+        progressStackContainerView.translatesAutoresizingMaskIntoConstraints = false
         todoListContainerView.translatesAutoresizingMaskIntoConstraints = false
         todoListTableView.translatesAutoresizingMaskIntoConstraints = false
         addButtonView.translatesAutoresizingMaskIntoConstraints = false
@@ -213,15 +219,15 @@ class HomeViewController: UIViewController, TodoListInteractionDelegate, AddButt
             headerStackView.trailingAnchor.constraint(equalTo: view.trailingAnchor, constant: -25),
             headerStackView.heightAnchor.constraint(equalToConstant: 55),
             
-            progressStackView.topAnchor.constraint(equalTo: headerStackView.bottomAnchor, constant: 10),
-            progressStackView.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: 25),
-            progressStackView.trailingAnchor.constraint(equalTo: view.trailingAnchor, constant: -25),
-            progressStackView.heightAnchor.constraint(equalToConstant: 50),
+            progressStackContainerView.topAnchor.constraint(equalTo: headerStackView.bottomAnchor, constant: 10),
+            progressStackContainerView.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: 25),
+            progressStackContainerView.trailingAnchor.constraint(equalTo: view.trailingAnchor, constant: -25),
+            progressStackContainerView.heightAnchor.constraint(equalToConstant: 70),
             
-            todoListContainerView.topAnchor.constraint(equalTo: progressStackView.bottomAnchor, constant: 10),
+            todoListContainerView.topAnchor.constraint(equalTo: progressStackView.bottomAnchor, constant: 25),
             todoListContainerView.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: 25),
             todoListContainerView.trailingAnchor.constraint(equalTo: view.trailingAnchor, constant: -25),
-            todoListContainerView.heightAnchor.constraint(equalTo: view.heightAnchor, multiplier: 0.6),
+            todoListContainerView.heightAnchor.constraint(equalTo: view.heightAnchor, multiplier: 0.4),
             
             todoListTableView.topAnchor.constraint(equalTo: todoListContainerView.topAnchor),
             todoListTableView.leadingAnchor.constraint(equalTo: todoListContainerView.leadingAnchor),

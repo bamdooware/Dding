@@ -76,7 +76,7 @@ class ProgressStackView: UIStackView {
         nextDayBtn.addTarget(self, action: #selector(nextDayTapped), for: .touchUpInside)
         
         NSLayoutConstraint.activate([
-            dayStackView.heightAnchor.constraint(equalToConstant: 40),
+            dayStackView.heightAnchor.constraint(equalToConstant: 55),
             previousDayBtn.widthAnchor.constraint(equalToConstant: buttonSize),
             previousDayBtn.heightAnchor.constraint(equalToConstant: buttonSize),
             nextDayBtn.widthAnchor.constraint(equalToConstant: buttonSize),
