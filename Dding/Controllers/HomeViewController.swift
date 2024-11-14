@@ -6,12 +6,17 @@
 //
 
 import UIKit
+#if DEBUG
+import KeychainSwift
+#endif
 
 class HomeViewController: UIViewController, TodoListInteractionDelegate, AddButtonViewDelegate, TodoDetailViewDelegate {
     
     private var todoItems: [TodoItem] = []
     private var filteredTodoItems: [TodoItem] = []
-    
+#if DEBUG
+    let keychain = KeychainSwift()
+#endif
     // MARK: - UI Components
     private let headerStackView = HeaderStackView()
     private let progressStackContainerView = UIView()
@@ -22,6 +27,50 @@ class HomeViewController: UIViewController, TodoListInteractionDelegate, AddButt
     private let newTodoView = NewTodoView()
     private var todoDetailView: TodoDetailView?
     private var blurEffectView: UIVisualEffectView?
+#if DEBUG
+    let resetButton: UIButton = {
+        let resetButton = UIButton(type: .system)
+        resetButton.frame = CGRect(x: 20, y: 50, width: 200, height: 50)
+        resetButton.setTitle("로그인 정보 초기화", for: .normal)
+        resetButton.setTitleColor(.red, for: .normal)
+        resetButton.addTarget(self, action: #selector(resetLoginInfo), for: .touchUpInside)
+        
+        return resetButton
+    }()
+    let resetButton2: UIButton = {
+        let resetButton = UIButton(type: .system)
+        resetButton.frame = CGRect(x: 20, y: 50, width: 200, height: 50)
+        resetButton.setTitle("키체인 정보 초기화", for: .normal)
+        resetButton.setTitleColor(.red, for: .normal)
+        resetButton.addTarget(self, action: #selector(resetLoginInfo2), for: .touchUpInside)
+        
+        return resetButton
+    }()
+    
+    @objc func resetLoginInfo() {
+        let defaults = UserDefaults.standard
+        defaults.removeObject(forKey: "isOnboardingCompleted")
+        defaults.removeObject(forKey: "userIdentifier")
+        defaults.removeObject(forKey: "userEmail")
+        
+        let alert = UIAlertController(title: "초기화 완료", message: "로그인 정보가 초기화되었습니다.", preferredStyle: .alert)
+        alert.addAction(UIAlertAction(title: "확인", style: .default, handler: { _ in
+            if let sceneDelegate = UIApplication.shared.connectedScenes.first?.delegate as? SceneDelegate {
+                let storyboard = UIStoryboard(name: "OnboardingScreen", bundle: nil)
+                let onboardingVC = storyboard.instantiateViewController(withIdentifier: "OnboardingViewController") as! OnboardingViewController
+                sceneDelegate.setRootViewController(onboardingVC)
+            }
+        }))
+    present(alert, animated: true)
+    }
+    
+    @objc func resetLoginInfo2() {
+        keychain.clear()
+
+    }
+    
+
+#endif
     
     // MARK: - Lifecycle
     override func viewDidLoad() {
@@ -80,6 +129,10 @@ class HomeViewController: UIViewController, TodoListInteractionDelegate, AddButt
         progressStackView.clipsToBounds = true
         progressStackContainerView.addSubview(progressStackView)
         
+#if DEBUG
+        view.addSubview(resetButton)
+        view.addSubview(resetButton2)
+#endif
         updateProgressView()
         setupNewTodoViewActions()
     }
@@ -207,12 +260,15 @@ class HomeViewController: UIViewController, TodoListInteractionDelegate, AddButt
     // MARK: - Constraints
     private func setupConstraints() {
         headerStackView.translatesAutoresizingMaskIntoConstraints = false
-//        progressStackView.translatesAutoresizingMaskIntoConstraints = false
         progressStackContainerView.translatesAutoresizingMaskIntoConstraints = false
+        progressStackView.translatesAutoresizingMaskIntoConstraints = false
         todoListContainerView.translatesAutoresizingMaskIntoConstraints = false
         todoListTableView.translatesAutoresizingMaskIntoConstraints = false
         addButtonView.translatesAutoresizingMaskIntoConstraints = false
-        
+#if DEBUG
+        resetButton.translatesAutoresizingMaskIntoConstraints = false
+        resetButton2.translatesAutoresizingMaskIntoConstraints = false
+#endif
         NSLayoutConstraint.activate([
             headerStackView.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor),
             headerStackView.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: 25),
@@ -224,7 +280,12 @@ class HomeViewController: UIViewController, TodoListInteractionDelegate, AddButt
             progressStackContainerView.trailingAnchor.constraint(equalTo: view.trailingAnchor, constant: -25),
             progressStackContainerView.heightAnchor.constraint(equalToConstant: 70),
             
-            todoListContainerView.topAnchor.constraint(equalTo: progressStackView.bottomAnchor, constant: 25),
+            progressStackView.topAnchor.constraint(equalTo: progressStackContainerView.topAnchor),
+            progressStackView.leadingAnchor.constraint(equalTo: progressStackContainerView.leadingAnchor),
+            progressStackView.trailingAnchor.constraint(equalTo: progressStackContainerView.trailingAnchor),
+            progressStackView.bottomAnchor.constraint(equalTo: progressStackContainerView.bottomAnchor),
+            
+            todoListContainerView.topAnchor.constraint(equalTo: progressStackContainerView.bottomAnchor, constant: 25),
             todoListContainerView.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: 25),
             todoListContainerView.trailingAnchor.constraint(equalTo: view.trailingAnchor, constant: -25),
             todoListContainerView.heightAnchor.constraint(equalTo: view.heightAnchor, multiplier: 0.4),
@@ -239,17 +300,25 @@ class HomeViewController: UIViewController, TodoListInteractionDelegate, AddButt
             addButtonView.bottomAnchor.constraint(equalTo: view.safeAreaLayoutGuide.bottomAnchor, constant: -15),
             addButtonView.trailingAnchor.constraint(equalTo: view.trailingAnchor, constant: -15),
             
-            todoListTableView.topAnchor.constraint(equalTo: progressStackView.bottomAnchor, constant: 10),
-            todoListTableView.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: 25),
-            todoListTableView.trailingAnchor.constraint(equalTo: view.trailingAnchor, constant: -25),
-            todoListTableView.heightAnchor.constraint(equalTo: view.heightAnchor, multiplier: 0.6)
+            resetButton.topAnchor.constraint(equalTo: todoListContainerView.bottomAnchor, constant: 10),
+            resetButton.centerXAnchor.constraint(equalTo: view.centerXAnchor),
+            resetButton.widthAnchor.constraint(equalToConstant: 100),
+            
+            resetButton2.topAnchor.constraint(equalTo: resetButton.bottomAnchor, constant: 10),
+            resetButton2.centerXAnchor.constraint(equalTo: view.centerXAnchor),
+            resetButton2.widthAnchor.constraint(equalToConstant: 100)
         ])
     }
+
     
     // MARK: - Utility
     private func addSubviewToRootWindow(_ view: UIView) {
-        guard let rootWindow = UIApplication.shared.windows.first else { return }
-        
+        guard let rootWindow = UIApplication.shared.connectedScenes
+                .compactMap({ $0 as? UIWindowScene })
+                .flatMap({ $0.windows })
+                .first(where: { $0.isKeyWindow }) else { return }
+
+
         rootWindow.addSubview(view)
         view.translatesAutoresizingMaskIntoConstraints = false
         NSLayoutConstraint.activate([
