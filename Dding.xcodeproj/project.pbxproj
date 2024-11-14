@@ -7,12 +7,11 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
-		507355EC2CE2024D00325651 /* KeychainSwift in Frameworks */ = {isa = PBXBuildFile; productRef = 507355EB2CE2024D00325651 /* KeychainSwift */; };
-		50D900F32CE5D295008B525C /* FirebaseAnalytics in Frameworks */ = {isa = PBXBuildFile; productRef = 50D900F22CE5D295008B525C /* FirebaseAnalytics */; };
-		50D900F52CE5D295008B525C /* FirebaseAuth in Frameworks */ = {isa = PBXBuildFile; productRef = 50D900F42CE5D295008B525C /* FirebaseAuth */; };
-		50D900F72CE5D295008B525C /* FirebaseDatabase in Frameworks */ = {isa = PBXBuildFile; productRef = 50D900F62CE5D295008B525C /* FirebaseDatabase */; };
-		50D900F92CE5D295008B525C /* FirebaseFirestore in Frameworks */ = {isa = PBXBuildFile; productRef = 50D900F82CE5D295008B525C /* FirebaseFirestore */; };
-		50D900FB2CE5D295008B525C /* FirebaseStorage in Frameworks */ = {isa = PBXBuildFile; productRef = 50D900FA2CE5D295008B525C /* FirebaseStorage */; };
+		5009F00C2CE6237400855088 /* KeychainSwift in Frameworks */ = {isa = PBXBuildFile; productRef = 5009F00B2CE6237400855088 /* KeychainSwift */; };
+		5009F00F2CE624E600855088 /* FirebaseAnalytics in Frameworks */ = {isa = PBXBuildFile; productRef = 5009F00E2CE624E600855088 /* FirebaseAnalytics */; };
+		5009F0112CE624E600855088 /* FirebaseAuth in Frameworks */ = {isa = PBXBuildFile; productRef = 5009F0102CE624E600855088 /* FirebaseAuth */; };
+		5009F0132CE624E600855088 /* FirebaseFirestore in Frameworks */ = {isa = PBXBuildFile; productRef = 5009F0122CE624E600855088 /* FirebaseFirestore */; };
+		5009F0152CE624E600855088 /* FirebaseStorage in Frameworks */ = {isa = PBXBuildFile; productRef = 5009F0142CE624E600855088 /* FirebaseStorage */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -45,12 +44,11 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				50D900F32CE5D295008B525C /* FirebaseAnalytics in Frameworks */,
-				50D900F52CE5D295008B525C /* FirebaseAuth in Frameworks */,
-				50D900F72CE5D295008B525C /* FirebaseDatabase in Frameworks */,
-				50D900F92CE5D295008B525C /* FirebaseFirestore in Frameworks */,
-				507355EC2CE2024D00325651 /* KeychainSwift in Frameworks */,
-				50D900FB2CE5D295008B525C /* FirebaseStorage in Frameworks */,
+				5009F00F2CE624E600855088 /* FirebaseAnalytics in Frameworks */,
+				5009F0132CE624E600855088 /* FirebaseFirestore in Frameworks */,
+				5009F0112CE624E600855088 /* FirebaseAuth in Frameworks */,
+				5009F0152CE624E600855088 /* FirebaseStorage in Frameworks */,
+				5009F00C2CE6237400855088 /* KeychainSwift in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -93,12 +91,11 @@
 			);
 			name = Dding;
 			packageProductDependencies = (
-				507355EB2CE2024D00325651 /* KeychainSwift */,
-				50D900F22CE5D295008B525C /* FirebaseAnalytics */,
-				50D900F42CE5D295008B525C /* FirebaseAuth */,
-				50D900F62CE5D295008B525C /* FirebaseDatabase */,
-				50D900F82CE5D295008B525C /* FirebaseFirestore */,
-				50D900FA2CE5D295008B525C /* FirebaseStorage */,
+				5009F00B2CE6237400855088 /* KeychainSwift */,
+				5009F00E2CE624E600855088 /* FirebaseAnalytics */,
+				5009F0102CE624E600855088 /* FirebaseAuth */,
+				5009F0122CE624E600855088 /* FirebaseFirestore */,
+				5009F0142CE624E600855088 /* FirebaseStorage */,
 			);
 			productName = Dding;
 			productReference = 50F7D8F12CAA76EE00842FBE /* Dding.app */;
@@ -130,8 +127,8 @@
 			mainGroup = 50F7D8E82CAA76EE00842FBE;
 			minimizedProjectReferenceProxies = 1;
 			packageReferences = (
-				507355EA2CE2024D00325651 /* XCRemoteSwiftPackageReference "keychain-swift" */,
-				50D900F12CE5D295008B525C /* XCRemoteSwiftPackageReference "firebase-ios-sdk" */,
+				5009F00A2CE6237400855088 /* XCRemoteSwiftPackageReference "keychain-swift" */,
+				5009F00D2CE624E600855088 /* XCRemoteSwiftPackageReference "firebase-ios-sdk" */,
 			);
 			preferredProjectObjectVersion = 77;
 			productRefGroup = 50F7D8F22CAA76EE00842FBE /* Products */;
@@ -169,13 +166,13 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
-				CODE_SIGN_ENTITLEMENTS = Dding/Dding.entitlements;
-				CODE_SIGN_IDENTITY = "Apple Development";
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
 				DEVELOPMENT_TEAM = J2A8V7WYQ4;
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_FILE = Dding/Info.plist;
+				INFOPLIST_KEY_CFBundleDisplayName = "Dding!";
+				INFOPLIST_KEY_LSApplicationCategoryType = "public.app-category.productivity";
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
 				INFOPLIST_KEY_UILaunchStoryboardName = LaunchScreen;
 				INFOPLIST_KEY_UIMainStoryboardFile = Main;
@@ -188,7 +185,6 @@
 				MARKETING_VERSION = 1.0;
 				PRODUCT_BUNDLE_IDENTIFIER = com.bamdoo.Dding;
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				PROVISIONING_PROFILE_SPECIFIER = "";
 				SUPPORTED_PLATFORMS = "iphoneos iphonesimulator";
 				SUPPORTS_MACCATALYST = NO;
 				SUPPORTS_MAC_DESIGNED_FOR_IPHONE_IPAD = NO;
@@ -204,13 +200,13 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
-				CODE_SIGN_ENTITLEMENTS = Dding/Dding.entitlements;
-				CODE_SIGN_IDENTITY = "Apple Development";
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
 				DEVELOPMENT_TEAM = J2A8V7WYQ4;
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_FILE = Dding/Info.plist;
+				INFOPLIST_KEY_CFBundleDisplayName = "Dding!";
+				INFOPLIST_KEY_LSApplicationCategoryType = "public.app-category.productivity";
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
 				INFOPLIST_KEY_UILaunchStoryboardName = LaunchScreen;
 				INFOPLIST_KEY_UIMainStoryboardFile = Main;
@@ -223,7 +219,6 @@
 				MARKETING_VERSION = 1.0;
 				PRODUCT_BUNDLE_IDENTIFIER = com.bamdoo.Dding;
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				PROVISIONING_PROFILE_SPECIFIER = "";
 				SUPPORTED_PLATFORMS = "iphoneos iphonesimulator";
 				SUPPORTS_MACCATALYST = NO;
 				SUPPORTS_MAC_DESIGNED_FOR_IPHONE_IPAD = NO;
@@ -377,7 +372,7 @@
 /* End XCConfigurationList section */
 
 /* Begin XCRemoteSwiftPackageReference section */
-		507355EA2CE2024D00325651 /* XCRemoteSwiftPackageReference "keychain-swift" */ = {
+		5009F00A2CE6237400855088 /* XCRemoteSwiftPackageReference "keychain-swift" */ = {
 			isa = XCRemoteSwiftPackageReference;
 			repositoryURL = "https://github.com/evgenyneu/keychain-swift";
 			requirement = {
@@ -385,9 +380,9 @@
 				minimumVersion = 24.0.0;
 			};
 		};
-		50D900F12CE5D295008B525C /* XCRemoteSwiftPackageReference "firebase-ios-sdk" */ = {
+		5009F00D2CE624E600855088 /* XCRemoteSwiftPackageReference "firebase-ios-sdk" */ = {
 			isa = XCRemoteSwiftPackageReference;
-			repositoryURL = "https://github.com/firebase/firebase-ios-sdk";
+			repositoryURL = "https://github.com/firebase/firebase-ios-sdk.git";
 			requirement = {
 				kind = upToNextMajorVersion;
 				minimumVersion = 11.5.0;
@@ -396,34 +391,29 @@
 /* End XCRemoteSwiftPackageReference section */
 
 /* Begin XCSwiftPackageProductDependency section */
-		507355EB2CE2024D00325651 /* KeychainSwift */ = {
+		5009F00B2CE6237400855088 /* KeychainSwift */ = {
 			isa = XCSwiftPackageProductDependency;
-			package = 507355EA2CE2024D00325651 /* XCRemoteSwiftPackageReference "keychain-swift" */;
+			package = 5009F00A2CE6237400855088 /* XCRemoteSwiftPackageReference "keychain-swift" */;
 			productName = KeychainSwift;
 		};
-		50D900F22CE5D295008B525C /* FirebaseAnalytics */ = {
+		5009F00E2CE624E600855088 /* FirebaseAnalytics */ = {
 			isa = XCSwiftPackageProductDependency;
-			package = 50D900F12CE5D295008B525C /* XCRemoteSwiftPackageReference "firebase-ios-sdk" */;
+			package = 5009F00D2CE624E600855088 /* XCRemoteSwiftPackageReference "firebase-ios-sdk" */;
 			productName = FirebaseAnalytics;
 		};
-		50D900F42CE5D295008B525C /* FirebaseAuth */ = {
+		5009F0102CE624E600855088 /* FirebaseAuth */ = {
 			isa = XCSwiftPackageProductDependency;
-			package = 50D900F12CE5D295008B525C /* XCRemoteSwiftPackageReference "firebase-ios-sdk" */;
+			package = 5009F00D2CE624E600855088 /* XCRemoteSwiftPackageReference "firebase-ios-sdk" */;
 			productName = FirebaseAuth;
 		};
-		50D900F62CE5D295008B525C /* FirebaseDatabase */ = {
+		5009F0122CE624E600855088 /* FirebaseFirestore */ = {
 			isa = XCSwiftPackageProductDependency;
-			package = 50D900F12CE5D295008B525C /* XCRemoteSwiftPackageReference "firebase-ios-sdk" */;
-			productName = FirebaseDatabase;
-		};
-		50D900F82CE5D295008B525C /* FirebaseFirestore */ = {
-			isa = XCSwiftPackageProductDependency;
-			package = 50D900F12CE5D295008B525C /* XCRemoteSwiftPackageReference "firebase-ios-sdk" */;
+			package = 5009F00D2CE624E600855088 /* XCRemoteSwiftPackageReference "firebase-ios-sdk" */;
 			productName = FirebaseFirestore;
 		};
-		50D900FA2CE5D295008B525C /* FirebaseStorage */ = {
+		5009F0142CE624E600855088 /* FirebaseStorage */ = {
 			isa = XCSwiftPackageProductDependency;
-			package = 50D900F12CE5D295008B525C /* XCRemoteSwiftPackageReference "firebase-ios-sdk" */;
+			package = 5009F00D2CE624E600855088 /* XCRemoteSwiftPackageReference "firebase-ios-sdk" */;
 			productName = FirebaseStorage;
 		};
 /* End XCSwiftPackageProductDependency section */
