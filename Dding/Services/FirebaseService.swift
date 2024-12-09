@@ -108,6 +108,17 @@ class FirebaseService {
                 let sampleRoutine = [
                     RoutineItem(
                         id: UUID().uuidString,
+                        title: "짧게 눌러서 정보보기",
+                        tag: .red,
+                        repeatDays: [1, 2, 3, 4, 5, 6, 7],
+                        routineTime: DateComponents(hour: 13, minute: 05),
+                        isCompleted: false,
+                        reminderTime: 10,
+                        completionCheckTime: 10,
+                        memo: "간단한 메모를 작성할 수 있습니다.",
+                        isFixed: false
+                    ),RoutineItem(
+                        id: UUID().uuidString,
                         title: "길게 눌러서 완료하기",
                         tag: .red,
                         repeatDays: [1, 2, 3, 4, 5, 6, 7],
@@ -115,7 +126,8 @@ class FirebaseService {
                         isCompleted: false,
                         reminderTime: 10,
                         completionCheckTime: 10,
-                        memo: "간단한 메모를 작성할 수 있습니다."
+                        memo: "간단한 메모를 작성할 수 있습니다.",
+                        isFixed: false
                     ),RoutineItem(
                         id: UUID().uuidString,
                         title: "왼쪽으로 밀어서 삭제하기 <--",
@@ -125,7 +137,8 @@ class FirebaseService {
                         isCompleted: false,
                         reminderTime: 10,
                         completionCheckTime: 10,
-                        memo: "간단한 메모를 작성할 수 있습니다."
+                        memo: "간단한 메모를 작성할 수 있습니다.",
+                        isFixed: false
                     ),RoutineItem(
                         id: UUID().uuidString,
                         title: "--> 오른쪽으로 밀어서 고정하기",
@@ -135,7 +148,8 @@ class FirebaseService {
                         isCompleted: false,
                         reminderTime: 10,
                         completionCheckTime: 10,
-                        memo: "간단한 메모를 작성할 수 있습니다."
+                        memo: "간단한 메모를 작성할 수 있습니다.",
+                        isFixed: false
                     )]
                 for routine in sampleRoutine {
                     self.saveRoutineItem(userId: userId, routine: routine, completion: completion)
