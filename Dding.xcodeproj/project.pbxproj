@@ -6,14 +6,6 @@
 	objectVersion = 77;
 	objects = {
 
-/* Begin PBXBuildFile section */
-		5009F00C2CE6237400855088 /* KeychainSwift in Frameworks */ = {isa = PBXBuildFile; productRef = 5009F00B2CE6237400855088 /* KeychainSwift */; };
-		5009F00F2CE624E600855088 /* FirebaseAnalytics in Frameworks */ = {isa = PBXBuildFile; productRef = 5009F00E2CE624E600855088 /* FirebaseAnalytics */; };
-		5009F0112CE624E600855088 /* FirebaseAuth in Frameworks */ = {isa = PBXBuildFile; productRef = 5009F0102CE624E600855088 /* FirebaseAuth */; };
-		5009F0132CE624E600855088 /* FirebaseFirestore in Frameworks */ = {isa = PBXBuildFile; productRef = 5009F0122CE624E600855088 /* FirebaseFirestore */; };
-		5009F0152CE624E600855088 /* FirebaseStorage in Frameworks */ = {isa = PBXBuildFile; productRef = 5009F0142CE624E600855088 /* FirebaseStorage */; };
-/* End PBXBuildFile section */
-
 /* Begin PBXFileReference section */
 		50F7D8F12CAA76EE00842FBE /* Dding.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Dding.app; sourceTree = BUILT_PRODUCTS_DIR; };
 /* End PBXFileReference section */
@@ -44,11 +36,6 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				5009F00F2CE624E600855088 /* FirebaseAnalytics in Frameworks */,
-				5009F0132CE624E600855088 /* FirebaseFirestore in Frameworks */,
-				5009F0112CE624E600855088 /* FirebaseAuth in Frameworks */,
-				5009F0152CE624E600855088 /* FirebaseStorage in Frameworks */,
-				5009F00C2CE6237400855088 /* KeychainSwift in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -91,11 +78,6 @@
 			);
 			name = Dding;
 			packageProductDependencies = (
-				5009F00B2CE6237400855088 /* KeychainSwift */,
-				5009F00E2CE624E600855088 /* FirebaseAnalytics */,
-				5009F0102CE624E600855088 /* FirebaseAuth */,
-				5009F0122CE624E600855088 /* FirebaseFirestore */,
-				5009F0142CE624E600855088 /* FirebaseStorage */,
 			);
 			productName = Dding;
 			productReference = 50F7D8F12CAA76EE00842FBE /* Dding.app */;
@@ -126,10 +108,6 @@
 			);
 			mainGroup = 50F7D8E82CAA76EE00842FBE;
 			minimizedProjectReferenceProxies = 1;
-			packageReferences = (
-				5009F00A2CE6237400855088 /* XCRemoteSwiftPackageReference "keychain-swift" */,
-				5009F00D2CE624E600855088 /* XCRemoteSwiftPackageReference "firebase-ios-sdk" */,
-			);
 			preferredProjectObjectVersion = 77;
 			productRefGroup = 50F7D8F22CAA76EE00842FBE /* Products */;
 			projectDirPath = "";
@@ -168,30 +146,24 @@
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
-				DEVELOPMENT_TEAM = J2A8V7WYQ4;
+				DEVELOPMENT_TEAM = 9NC93C6S57;
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_FILE = Dding/Info.plist;
-				INFOPLIST_KEY_CFBundleDisplayName = "Dding!";
-				INFOPLIST_KEY_LSApplicationCategoryType = "public.app-category.productivity";
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
 				INFOPLIST_KEY_UILaunchStoryboardName = LaunchScreen;
 				INFOPLIST_KEY_UIMainStoryboardFile = Main;
-				INFOPLIST_KEY_UISupportedInterfaceOrientations = UIInterfaceOrientationPortrait;
-				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPad = "UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown";
+				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPad = "UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
+				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPhone = "UIInterfaceOrientationPortrait UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
 				MARKETING_VERSION = 1.0;
-				PRODUCT_BUNDLE_IDENTIFIER = com.bamdoo.Dding;
+				PRODUCT_BUNDLE_IDENTIFIER = Didi.Dding;
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				SUPPORTED_PLATFORMS = "iphoneos iphonesimulator";
-				SUPPORTS_MACCATALYST = NO;
-				SUPPORTS_MAC_DESIGNED_FOR_IPHONE_IPAD = NO;
-				SUPPORTS_XR_DESIGNED_FOR_IPHONE_IPAD = NO;
 				SWIFT_EMIT_LOC_STRINGS = YES;
 				SWIFT_VERSION = 5.0;
-				TARGETED_DEVICE_FAMILY = 1;
+				TARGETED_DEVICE_FAMILY = "1,2";
 			};
 			name = Debug;
 		};
@@ -202,30 +174,24 @@
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
-				DEVELOPMENT_TEAM = J2A8V7WYQ4;
+				DEVELOPMENT_TEAM = 9NC93C6S57;
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_FILE = Dding/Info.plist;
-				INFOPLIST_KEY_CFBundleDisplayName = "Dding!";
-				INFOPLIST_KEY_LSApplicationCategoryType = "public.app-category.productivity";
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
 				INFOPLIST_KEY_UILaunchStoryboardName = LaunchScreen;
 				INFOPLIST_KEY_UIMainStoryboardFile = Main;
-				INFOPLIST_KEY_UISupportedInterfaceOrientations = UIInterfaceOrientationPortrait;
-				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPad = "UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown";
+				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPad = "UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
+				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPhone = "UIInterfaceOrientationPortrait UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
 				MARKETING_VERSION = 1.0;
-				PRODUCT_BUNDLE_IDENTIFIER = com.bamdoo.Dding;
+				PRODUCT_BUNDLE_IDENTIFIER = Didi.Dding;
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				SUPPORTED_PLATFORMS = "iphoneos iphonesimulator";
-				SUPPORTS_MACCATALYST = NO;
-				SUPPORTS_MAC_DESIGNED_FOR_IPHONE_IPAD = NO;
-				SUPPORTS_XR_DESIGNED_FOR_IPHONE_IPAD = NO;
 				SWIFT_EMIT_LOC_STRINGS = YES;
 				SWIFT_VERSION = 5.0;
-				TARGETED_DEVICE_FAMILY = 1;
+				TARGETED_DEVICE_FAMILY = "1,2";
 			};
 			name = Release;
 		};
@@ -370,53 +336,6 @@
 			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
-
-/* Begin XCRemoteSwiftPackageReference section */
-		5009F00A2CE6237400855088 /* XCRemoteSwiftPackageReference "keychain-swift" */ = {
-			isa = XCRemoteSwiftPackageReference;
-			repositoryURL = "https://github.com/evgenyneu/keychain-swift";
-			requirement = {
-				kind = upToNextMajorVersion;
-				minimumVersion = 24.0.0;
-			};
-		};
-		5009F00D2CE624E600855088 /* XCRemoteSwiftPackageReference "firebase-ios-sdk" */ = {
-			isa = XCRemoteSwiftPackageReference;
-			repositoryURL = "https://github.com/firebase/firebase-ios-sdk.git";
-			requirement = {
-				kind = upToNextMajorVersion;
-				minimumVersion = 11.5.0;
-			};
-		};
-/* End XCRemoteSwiftPackageReference section */
-
-/* Begin XCSwiftPackageProductDependency section */
-		5009F00B2CE6237400855088 /* KeychainSwift */ = {
-			isa = XCSwiftPackageProductDependency;
-			package = 5009F00A2CE6237400855088 /* XCRemoteSwiftPackageReference "keychain-swift" */;
-			productName = KeychainSwift;
-		};
-		5009F00E2CE624E600855088 /* FirebaseAnalytics */ = {
-			isa = XCSwiftPackageProductDependency;
-			package = 5009F00D2CE624E600855088 /* XCRemoteSwiftPackageReference "firebase-ios-sdk" */;
-			productName = FirebaseAnalytics;
-		};
-		5009F0102CE624E600855088 /* FirebaseAuth */ = {
-			isa = XCSwiftPackageProductDependency;
-			package = 5009F00D2CE624E600855088 /* XCRemoteSwiftPackageReference "firebase-ios-sdk" */;
-			productName = FirebaseAuth;
-		};
-		5009F0122CE624E600855088 /* FirebaseFirestore */ = {
-			isa = XCSwiftPackageProductDependency;
-			package = 5009F00D2CE624E600855088 /* XCRemoteSwiftPackageReference "firebase-ios-sdk" */;
-			productName = FirebaseFirestore;
-		};
-		5009F0142CE624E600855088 /* FirebaseStorage */ = {
-			isa = XCSwiftPackageProductDependency;
-			package = 5009F00D2CE624E600855088 /* XCRemoteSwiftPackageReference "firebase-ios-sdk" */;
-			productName = FirebaseStorage;
-		};
-/* End XCSwiftPackageProductDependency section */
 	};
 	rootObject = 50F7D8E92CAA76EE00842FBE /* Project object */;
 }

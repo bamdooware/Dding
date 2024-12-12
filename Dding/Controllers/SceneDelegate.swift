@@ -11,13 +11,32 @@ import KeychainSwift
 class SceneDelegate: UIResponder, UIWindowSceneDelegate {
     
     var window: UIWindow?
-    let keychain = KeychainSwift()
+    let keychain = KeychainManager.shared
     
     func scene(_ scene: UIScene, willConnectTo session: UISceneSession, options connectionOptions: UIScene.ConnectionOptions) {
         let window = UIWindow(windowScene: scene as! UIWindowScene)
         self.window = window
+//        keychain.deleteUserKeychain()
         setInitialRootViewController()
         window.makeKeyAndVisible()
+    }
+    
+    func setInitialRootViewController() {
+        let isLoggedIn = keychain.getUserIdentifier() != nil
+        
+        if isLoggedIn {
+            setRootViewController(MainTabBarController())
+        } else {
+            let storyboard = UIStoryboard(name: "OnboardingScreen", bundle: nil)
+            if let onboardingVC = storyboard.instantiateViewController(withIdentifier: "OnboardingViewController") as? OnboardingViewController {
+                setRootViewController(onboardingVC)
+            }
+        }
+    }
+    
+    func setRootViewController(_ viewController: UIViewController) {
+        guard let window = self.window else { return }
+        window.rootViewController = viewController
     }
     
     func setInitialRootViewController() {
