@@ -33,7 +33,6 @@ extension UIViewController {
         alert.addAction(okAction)
         present(alert, animated: true)
     }
-    
 }
 //
 //func showAlert(title: String, message: String) {
