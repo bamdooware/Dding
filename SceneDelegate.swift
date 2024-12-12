@@ -39,26 +39,6 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
         window.rootViewController = viewController
     }
     
-    func setInitialRootViewController() {
-        let isLoggedIn = KeychainSwift().get("userIdentifier") != nil
-        
-        if isLoggedIn {
-            setRootViewController(TabViewController())
-        } else {
-            let storyboard = UIStoryboard(name: "OnboardingScreen", bundle: nil)
-            if let onboardingVC = storyboard.instantiateViewController(withIdentifier: "OnboardingViewController") as? OnboardingViewController {
-                setRootViewController(onboardingVC)
-            }
-        }
-    }
-    
-    func setRootViewController(_ viewController: UIViewController) {
-        guard let window = self.window else { return }
-        window.rootViewController = viewController
-    }
-    
-    
-    
     func sceneDidDisconnect(_ scene: UIScene) {
         // Called as the scene is being released by the system.
         // This occurs shortly after the scene enters the background, or when its session is discarded.
